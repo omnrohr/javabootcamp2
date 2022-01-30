@@ -12,11 +12,11 @@ public class Main {
         Scanner scan = new Scanner(System.in);
 
         Car[] cars = new Car[] {
-                new Car("    ", -5000),
-                new Car("    ", 12000),
+                new Car("Nissan", 5000),
+                new Car("Honda", 12000),
         };
-        cars[1].setMake("    ");
-        cars[1].setPrice(-8500);
+        cars[1].setMake("Toyota");
+        cars[1].setPrice(8500);
 
         Dealership dealership = new Dealership(cars);
 
