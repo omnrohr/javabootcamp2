@@ -1,21 +1,29 @@
 package com.company.contacts;
 
 import com.company.contacts.models.Contact;
+import com.company.contacts.models.ContactManager;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            Contact contact = new Contact("name", "123456789","08/19/1980");
-            Contact newContact = new Contact(contact);
-            contact.setBirthDate("01/01/2000");
-            System.out.println(contact.getAge());
-            newContact.setName("new name");
-            newContact.setPhoneNumber("010010001");
-            newContact.setBirthDate("01/01/1990");
-            System.out.println(newContact);
+        ContactManager manager = new ContactManager();
+
+    try {
+        manager.addContact(0,new Contact("Ryan", "6135012424", "11/11/1992"));
+        manager.addContact(1,new Contact("Gio", "6477092344", "11/11/1993"));
+        manager.addContact(2,new Contact("Thomas", "8192256979", "11/11/1994"));
+//            Contact contact = new Contact("name", "123456789","08/19/1980");
+//            Contact newContact = new Contact(contact);
+//            contact.setBirthDate("01/01/2000");
+//            System.out.println(contact.getAge());
+//            newContact.setName("new name");
+//            newContact.setPhoneNumber("010010001");
+//            newContact.setBirthDate("01/01/1990");
+//            System.out.println(newContact);
+        System.out.println(manager);
             } catch (ParseException e){
             System.out.println(e.getMessage());
             }finally {

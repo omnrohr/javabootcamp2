@@ -12,15 +12,15 @@ public class Contact {
     private int age;
 
     public Contact(String name, String phoneNumber, String birthDate) throws ParseException{
-        if (!checkString(name)){
+        if (checkString(name)){
             throw new IllegalArgumentException("Name can not be null/blank");
         }
         this.name = name;
-        if (!checkPhoneNumber(phoneNumber)){
+        if (checkPhoneNumber(phoneNumber)){
             throw new IllegalArgumentException("Minnsing numbers, please checkout.");
         }
         this.phoneNumber = phoneNumber;
-        if (!checkString(birthDate)){
+        if (checkString(birthDate)){
             throw new IllegalArgumentException("birthdate cannot be null/blank");
         }
         this.birthDate = birthDate;
@@ -38,7 +38,7 @@ public class Contact {
     }
 
     public void setName(String name) {
-        if (!checkString(name)){
+        if (checkString(name)){
             throw new IllegalArgumentException("name can not be empty/black!");
         }
         this.name = name;
@@ -49,7 +49,7 @@ public class Contact {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        if (!checkPhoneNumber(phoneNumber)){
+        if (checkPhoneNumber(phoneNumber)){
             throw new IllegalArgumentException("Phone number can not be null/blank!");
         }
         this.phoneNumber = phoneNumber;
@@ -97,6 +97,9 @@ public class Contact {
                 "Birth Date: " + birthDate + "\n" +
                 "Age: " + age + " year old\n";
     }
+//    public String inLineToString(){
+//        return name + " " + phoneNumber + " " + birthDate + "\n";
+//    }
     private boolean checkString(String name){
         return (name.isBlank()|| name==null);
     }
