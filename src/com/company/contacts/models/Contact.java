@@ -10,39 +10,21 @@ public class Contact {
     private String phoneNumber;
     private String birthDate;
     private int age;
-    private Date currentTime = new Date(System.currentTimeMillis());
-
 
     public Contact(String name, String phoneNumber, String birthDate) throws ParseException{
-        if (name.isBlank()|| name==null){
+        if (!checkString(name)){
             throw new IllegalArgumentException("Name can not be null/blank");
         }
         this.name = name;
-        if (phoneNumber.length() < 9 || phoneNumber.isBlank()){
+        if (!checkPhoneNumber(phoneNumber)){
             throw new IllegalArgumentException("Minnsing numbers, please checkout.");
         }
         this.phoneNumber = phoneNumber;
-        if (birthDate.isBlank()||birthDate== null){
+        if (!checkString(birthDate)){
             throw new IllegalArgumentException("birthdate cannot be null/blank");
         }
         this.birthDate = birthDate;
-        System.out.println(currentTime);
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        sdf.setLenient(false);
-        long difference = new Date().getTime() - sdf.parse(birthDate).getTime();
-        int age = (int)(TimeUnit.MILLISECONDS.toDays(difference)/365);
-        this.age = age;
-
-//        try {
-////            Date birthYear = sdf.parse(birthDate); //convert String to actual date.
-////            long toMilli = birthYear.getTime();// convert date to milliseconds since 1970;
-//            long difference = new Date().getTime() - sdf.parse(birthDate).getTime(); //in one line
-//
-//            int age = (int)(TimeUnit.MILLISECONDS.toDays(difference)/365); //convert to years.
-//            this.age = age;
-//        } catch (ParseException e){
-//            System.out.println(e.getMessage());
-//        }
+        this.age = calculateAge(birthDate);
     }
 
     public Contact(Contact source){
@@ -56,6 +38,9 @@ public class Contact {
     }
 
     public void setName(String name) {
+        if (!checkString(name)){
+            throw new IllegalArgumentException("name can not be empty/black!");
+        }
         this.name = name;
     }
 
@@ -64,6 +49,9 @@ public class Contact {
     }
 
     public void setPhoneNumber(String phoneNumber) {
+        if (!checkPhoneNumber(phoneNumber)){
+            throw new IllegalArgumentException("Phone number can not be null/blank!");
+        }
         this.phoneNumber = phoneNumber;
     }
 
@@ -71,11 +59,48 @@ public class Contact {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(String birthDate) throws ParseException{
         this.birthDate = birthDate;
+        setAge(calculateAge(birthDate));
     }
 
     public int getAge() {
         return age;
+    }
+    private void setAge(int age){
+        this.age=age;
+    }
+    /**
+     * Name: calculateAge
+     * @param birthDate
+     * @return age (int)
+     * @throws ParseException
+     *
+     * Inside the function:
+     *   1. Parses a date from the birthDate String
+     *   2. Gets the current date
+     *   3. Subtracts the difference and returns the age.
+     *
+     */
+    public int calculateAge(String birthDate) throws ParseException{
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy"); // instantiate simple formatter.
+        formatter.setLenient(false);// force the formatter to parse the date format as given.
+        Date parcedBirthDate = formatter.parse(birthDate); //git the birthdate from birthdate string.
+        long toDayInMilli = new Date().getTime();
+        long birhtDateInMilli = parcedBirthDate.getTime();
+        long different = new Date().getTime() - formatter.parse(birthDate).getTime();
+        return  (int) (TimeUnit.MILLISECONDS.toDays(different)/365);
+    }
+    public String toString(){
+        return "Name: " + name + "\n" +
+                "Phone number: " + phoneNumber + "\n" +
+                "Birth Date: " + birthDate + "\n" +
+                "Age: " + age + " year old\n";
+    }
+    private boolean checkString(String name){
+        return (name.isBlank()|| name==null);
+    }
+    private boolean checkPhoneNumber(String phoneNumber){
+        return (phoneNumber.length() < 9 || phoneNumber.isBlank() || phoneNumber == null);
     }
 }

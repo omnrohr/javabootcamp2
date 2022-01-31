@@ -1,8 +1,19 @@
-package com.company.contacts1.models;
+package com.company.TestContacts;
+
+import com.company.TestContacts.models.TestContact;
+
+import java.text.ParseException;
 
 public class Main {
     public static void main(String[] args) {
-
+        try {
+            TestContact testContact = new TestContact("name", "123456789", "08/01/1980");
+            System.out.println("your age: "+ testContact.getAge());
+        }catch (ParseException e){
+            System.out.println(e.getMessage());
+        }finally {
+            System.out.println("completed");
+        }
 
 
     }

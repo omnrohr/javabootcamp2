@@ -4,16 +4,23 @@ import com.company.contacts.models.Contact;
 
 import java.text.ParseException;
 
+
 public class Main {
     public static void main(String[] args) {
         try {
-            Contact contact = new Contact("name", "123456789","5465408/19/1980");
+            Contact contact = new Contact("name", "123456789","08/19/1980");
+            Contact newContact = new Contact(contact);
+            contact.setBirthDate("01/01/2000");
             System.out.println(contact.getAge());
+            newContact.setName("new name");
+            newContact.setPhoneNumber("010010001");
+            newContact.setBirthDate("01/01/1990");
+            System.out.println(newContact);
             } catch (ParseException e){
             System.out.println(e.getMessage());
-        }finally {
-            System.out.println("completed");
-        }
+            }finally {
+                System.out.println("completed");
+            }
 
 
     }
