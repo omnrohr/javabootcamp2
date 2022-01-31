@@ -17,22 +17,35 @@ public class ContactManager {
         contacts.set(index,new Contact(contact));
     }
 
-    public void addContact(int index, Contact contact){
-        contacts.add(index, new Contact(contact));
+    public void addContact(Contact contact){
+        contacts.add(new Contact(contact));
     }
 
     public void removeContact(String name){
-        for (int i = 0; i < contacts.size()-1; i++) {
+        if (contacts.isEmpty()){
+            throw new IllegalStateException("The contact list is empty!");
+        }
+        for (int i = 0; i < contacts.size(); i++) {
             if (contacts.get(i).getName().equals(name)){
                 contacts.remove(i);
             }
         }
     }
     public String toString(){
+        if(contacts.isEmpty()) return "\ncontact list is empty\n";
         String temp = "";
         for (int i = 0; i < contacts.size(); i++) {
             temp += contacts.get(i).toString();
             temp += "\n\n";
         }return temp;
+    }
+    public String searchContact(String name){
+        if (contacts.isEmpty()){
+            throw new IllegalStateException("contacts is empty.");
+        }
+        for (int i = 0; i < contacts.size(); i++) {
+            if (contacts.get(i).getName().equalsIgnoreCase(name))
+                return contacts.get(i).toString();
+        }return null;
     }
 }

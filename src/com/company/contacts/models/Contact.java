@@ -31,6 +31,7 @@ public class Contact {
         this.name = source.name;
         this.phoneNumber = source.phoneNumber;
         this.birthDate = source.birthDate;
+        this.age = source.age;
     }
 
     public String getName() {
