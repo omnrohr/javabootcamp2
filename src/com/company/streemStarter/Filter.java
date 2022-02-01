@@ -1,6 +1,7 @@
 package com.company.streemStarter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Filter {
 
@@ -17,6 +18,13 @@ public class Filter {
                         .filter((price) -> price<5)
                         .forEach((price)-> System.out.println(price));
 //        filterLowPrices();
+        int[] numbers = new int[] {1, 2, 3};
+
+        int value = Arrays.stream(numbers)
+                .filter((number) -> number < 3)
+                .map((number) -> number * 2)
+                .sum();
+        System.out.println(value);
 
     }
 
