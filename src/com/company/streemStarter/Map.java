@@ -1,6 +1,8 @@
 package com.company.streemStarter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Map {
 
@@ -14,8 +16,11 @@ public class Map {
         prices.add(15.99);
 
         ArrayList<Double> withTax = new ArrayList<Double>();
-        tax(withTax);
-
+//        tax(withTax);
+        withTax.addAll(prices.stream()
+                .map((anything)-> anything*1.13)
+                .collect(Collectors.toList()));
+        System.out.println(withTax.toString());;
     }
 
     public static void tax(ArrayList<Double> withTax) {
