@@ -1,6 +1,7 @@
 package com.company.streemStarter;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class FilterTwo {
 
@@ -14,8 +15,12 @@ public class FilterTwo {
         prices.add(15.99);
 
         ArrayList<Double> lowPrices = new ArrayList<Double>();
-    
-        filterLowPrices(lowPrices);
+
+        lowPrices.addAll(prices.stream()
+                .filter((anything) -> anything <5)
+                .collect(Collectors.toList()));
+
+//        filterLowPrices(lowPrices);
     }
 
     public static void filterLowPrices(ArrayList<Double> lowPrices) {
