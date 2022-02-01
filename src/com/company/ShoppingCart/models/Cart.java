@@ -81,7 +81,9 @@ public class Cart {
                 "\tTax: $" + tax + "\n" +
                 "\tTotal: $" + (subtotal+tax) + "\n";
     }
-
+    public boolean isEmpty() {
+        return this.items.isEmpty();
+    }
     @Override
     public String toString() {
         String temp = "";

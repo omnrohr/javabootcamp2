@@ -14,7 +14,7 @@ public class Main {
     static Cart cart = new Cart();
     public static void main(String[] args) {
         try {
-            loadItems("products.txt");
+            loadItems("D:\\javabootcamp2\\exceptions\\src\\com\\company\\ShoppingCart\\products.txt");
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -40,10 +40,11 @@ public class Main {
             System.out.println("\t***************************************************************************");
             System.out.println("\t                         WELCOME TO JAVA GROCERS!                           ");
             System.out.println("\t***************************************************************************");
-            System.out.println("\n\t******************************By Obada******************************\n");
+
             System.out.println(store);
 
             System.out.println("Options: \n\ta) Add to cart\n\tb) Remove from cart \n\tc) Checkout");
+            System.out.print("\nplease select: ");
             String response = scan.nextLine();
 
             switch (response) {
