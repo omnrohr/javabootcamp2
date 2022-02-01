@@ -38,7 +38,7 @@ public class Movie {
     public String getName() {
         return name;
     }
-    
+
     public String getFormat() {
         return format;
     }
@@ -96,11 +96,30 @@ public class Movie {
 
     public String toString() {
         return "\t Name: " + this.name + "\n" +
-               "\t Format: " + this.format + "\n" +
-               "\t Rating: " + this.rating + "\n" +
-               "\t Selling Price: " + this.sellingPrice + "\n" +
-               "\t Rental Price: " + this.rentalPrice + "\n" +
-               "\t Availability: " + (this.isAvailable ? "in-stock" : "rented") + "\n";
+                "\t Format: " + this.format + "\n" +
+                "\t Rating: " + this.rating + "\n" +
+                "\t Selling Price: " + this.sellingPrice + "\n" +
+                "\t Rental Price: " + this.rentalPrice + "\n" +
+                "\t Availability: " + (this.isAvailable ? "in-stock" : "rented") + "\n";
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (!(obj instanceof Movie)) {
+            return false;
+        }
+
+        Movie movie = (Movie)obj;
+        return this.name.equals(movie.name) &&
+                this.format.equals(movie.format) &&
+                this.rating == movie.rating &&
+                this.sellingPrice == movie.sellingPrice &&
+                this.rentalPrice == movie.rentalPrice &&
+                this.isAvailable == movie.isAvailable;
+
     }
 
 }
