@@ -5,38 +5,25 @@ import com.company.Movie_Store.models.Store;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.text.ParseException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
+
+
     static Store store = new Store();
+
     public static void main(String[] args) {
         System.out.println("\n********************JAVA VIDEO STORE********************\n");
         try {
-            loadMovies("D:\\javabootcamp2\\exceptions\\src\\com\\company\\Movie_Store\\movies.txt");
-            manageMovies();
-//            store.addMovie(new Movie("movie1", "none",8.9));
-//            store.addMovie(new Movie("Blue-Ray", "Blue-Ray",9.9));
-//            System.out.println(store);
-//            store.action("movie1", "rent");
-//            System.out.println(store);
-//            store.action("blue-ray", "sell");
-//            System.out.println(store);
-//            store.action("movie1", "return");
-//            System.out.println(store);
-
-//            Movie movie1 = new Movie("movie1", "none",8.9);
-//            Movie movie2 = new Movie("Blue-Ray", "Blue-Ray",9.9);
-//            System.out.println(movie2);
-//            movie2.setFormat("Blue-Ray");
-//            System.out.println(movie2);
-        }catch (FileNotFoundException e){
+            loadMovies("movies.txt");
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-        }finally {
-            System.out.println("Movies Loaded.\n\n"+ store);
-
+        } finally {
+            System.out.println("MOVIES LOADED\n\n");
+            System.out.println(store);
+            manageMovies();
         }
+
     }
 
     /**
@@ -49,64 +36,42 @@ public class Main {
      *   •        case c: ask for the name and return.
      *   • 3. call close() from the Scanner object.
      */
-    public static void manageMovies(){
+
+    public static void manageMovies() {
         Scanner scan = new Scanner(System.in);
-        while (true){
-            System.out.println("Please select one of following.\n\ta) to purchase movie.\n\tb) to rent movie.\n\tc) to return.\n\td) to add movie.\n\te) to exit.");
-            System.out.print("Please enter your choice: ");
+        while (true) {
+            System.out.println("\nWould you like to \n\ta) purchase\n\tb) rent \n\tc) return.");
             String response = scan.nextLine();
 
-            if (response.equalsIgnoreCase("e"))break;
-
-            switch (response){
-                case "a":{
-                    System.out.print("\nWhat would you like to purchase: ");
-                    String name = scan.nextLine();
-                    store.action(name, "sell");
-                    break;
-                }
-                case "d": {
-                    System.out.print("please enter the movie name: ");
-                    String name = scan.nextLine();
-
-                    System.out.print("please enter the movie format: ");
-                    String format = scan.nextLine();
-
-                    System.out.print("Please enter rating: ");
-                    double rating = scan.nextDouble();
-
-                    if (name.isBlank()||format.isBlank()||rating<0||rating>10||
-                            name==null||format.length()<3||format==null ||
-                            (!format.equalsIgnoreCase("dvd")&&!format.equalsIgnoreCase("Blue-Ray"))){
-                        System.out.println("\nnone of requested info can be empty or phone number is less than 9 characters\n");
-                        continue;
-                    }else {
-                        try {
-                            store.addMovie(new Movie(name,format,rating));
-                        }catch (IllegalArgumentException e){
-                            System.out.println(e.getMessage());
-                        }finally {
-                            System.out.println("\nContact added successfully.\n");
-                            System.out.println(store.searchMovie(name));
-                            break;
-                        }
-                    }
-                }
-                case "b":{
-                    System.out.print("\nWhat would you like to rent? ");
-                    String name = scan.nextLine();
-                    store.action(name, "rent");
-                    break;
-                }
-                case "c":{
-                    System.out.print("\nwho would you like to return? ");
-                    String name = scan.nextLine();
-                    store.action(name, "return");
-                    break;
-                }
+            if (!(response.equals("a") || response.equals("b") || response.equals("c"))) {
+                scan.close();
+                break;
             }
-        }scan.close();
+
+            System.out.print("Enter the name of the movie: ");
+            String name = scan.nextLine();
+            if (store.getMovie(name) == null) {
+                System.out.println("\n\nThe input you provided is not valid. Please try again\n");
+                continue;
+            }
+
+            switch (response) {
+                case "a":
+                    if (!(store.getMovie(name).isAvailable())) {
+                        System.out.println("\n\n\n\nThe movie is not available for purchase. Please try again\n");
+                        continue;
+                    }
+                    store.action(name, "sell"); break;
+                case "b": store.action(name, "rent"); break;
+                case "c": store.action(name, "return"); break;
+            }
+            System.out.println("\n\nUPDATED MOVIES\n\n" + store);
+        }
     }
+
+
+
+
 
     /**
      * Name: loadMovies
@@ -116,15 +81,19 @@ public class Main {
      * Inside the function:
      *   • 1. loads movies from <fileName>.txt.
      *   • 2. adds all movies to the store object's movie field.
-     *        Hint: You will need to 'split' a String into three Strings.
      */
-    public static void loadMovies(String fileName) throws FileNotFoundException{
-        FileInputStream load = new FileInputStream(fileName);
-        Scanner scan = new Scanner(load);
-        while (scan.hasNextLine()){
-            String temp = scan.nextLine();
-            String[] movieLine = temp.split("--");
-            store.addMovie(new Movie(movieLine[0], movieLine[1],Double.parseDouble(movieLine[2])));
+
+    public static void loadMovies(String fileName) throws FileNotFoundException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Scanner scanFile = new Scanner(fis);
+
+        while (scanFile.hasNextLine()) {
+            String line = scanFile.nextLine();
+            String[] words = line.split("--");
+            store.addMovie(new Movie(words[0], words[1], Double.parseDouble(words[2])));
         }
+        scanFile.close();
     }
+
+
 }

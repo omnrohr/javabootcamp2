@@ -1,105 +1,67 @@
 package com.company.Movie_Store.models;
-
 import java.util.ArrayList;
 
 public class Store {
-    private ArrayList<Movie> movies;
+    ArrayList<Movie> movies;
 
-    public Store(){
+    public Store() {
         this.movies = new ArrayList<Movie>();
     }
 
-    public Movie getMovie(int index){
-        return new Movie(movies.get(index));
-    }
-    public void addMovie(Movie movie){
-        movies.add(new Movie(movie));
+    public Movie getMovie(int index) {
+        return new Movie(this.movies.get(index));
     }
 
-    public void setMovies(int index, Movie movie){
-        movies.set(index,new Movie(movie));
-    }
-
-    public void action (String name, String action){
-        if (checkInput(name)){
-            throw new IllegalArgumentException("name should be more than 3 characters.");
+    public Movie getMovie(String name) {
+        for (int i = 0; i < this.movies.size(); i++) {
+            if (this.movies.get(i).getName().equals(name)) {
+                return new Movie(this.movies.get(i));
+            }
         }
-        if (movies.size()==0){
-            throw new IllegalStateException("sorry no movies.");
+        return null;
+    }
+
+    public void setMovie(int index, Movie movie) {
+        this.movies.set(index, new Movie(movie));
+    }
+
+    public void addMovie(Movie movie) {
+        this.movies.add(new Movie(movie));
+    }
+
+    public void action(String name, String action) {
+        if (movies.isEmpty()) {
+            throw new IllegalStateException("Store not in a valid state to perform action");
         }
-        for (int i = 0; i < movies.size(); i++) {
-            if (movies.get(i).getName().equalsIgnoreCase(name)){
-
-                if (action.equalsIgnoreCase("sell")&& movies.get(i).isAvailable()){
-                    movies.remove(i);
-                    System.out.println("Enjoy your movie.");
-
-                }else if (action.equalsIgnoreCase("rent")&& movies.get(i).isAvailable()){
-                    movies.get(i).setAvailable(false);
-                    System.out.println("Enjoy your movie.");
-
-                } else if (action.equalsIgnoreCase("return")&& !movies.get(i).isAvailable()){
-                    movies.get(i).setAvailable(true);
-                    System.out.println("Thanks for return the movie.");
-                }else continue;
-                break;
+        if (!(action.equals("sell") || action.equals("rent") || action.equals("return"))) {
+            throw new IllegalArgumentException("action must be sell, rent or return");
+        }
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("name cannot be null/blank");
+        }
+        for (int i = 0; i < this.movies.size(); i++) {
+            if (this.movies.get(i).getName().equals(name)) {
+                switch (action) {
+                    case "sell":
+                        if (!(movies.get(i).isAvailable())) {
+                            throw new IllegalStateException("Cannot sell movie that was rented out");
+                        }
+                        this.movies.remove(i); break;
+                    case "rent": this.movies.get(i).setAvailable(false); break;
+                    case "return": this.movies.get(i).setAvailable(true); break;
+                }
             }
         }
     }
 
-//    public void sellMovie(String name){
-//        for (int i = 0; i < movies.size(); i++) {
-//            if (movies.get(i).getName().equalsIgnoreCase(name)){
-//                movies.remove(i);
-//                System.out.println("Enjoy your movie.");
-//                break;
-//            }
-//        }
-//    }
-//
-//    public void rentMovie(String name){
-//        for (int i = 0; i < movies.size(); i++) {
-//            if (movies.get(i).getName().equalsIgnoreCase(name)){
-//                movies.get(i).setAvailable(false);
-//                System.out.println("Enjoy your movie.");
-//                break;
-//            }
-//        }
-//    }
-//
-//    public void returnMovie(String name){
-//        for (int i = 0; i < movies.size(); i++) {
-//            if (movies.get(i).getName().equalsIgnoreCase(name)){
-//                movies.get(i).setAvailable(true);
-//                System.out.println("Thanks for return the movie.");
-//                break;
-//            }
-//        }
-//    }
-    public String toString(){
+    public String toString() {
         String temp = "";
-        if (movies.size()==0){
-            return "Sorry no movies";
-        }else {
-            for (int i = 0; i < movies.size(); i++) {
-                temp += movies.get(i).toString()+"\n\n";
-            }
-        }return temp;
+        for (int i = 0; i < this.movies.size(); i++) {
+            temp += this.movies.get(i).toString();
+            temp += "\n\n";
+        }
+        return temp;
     }
 
-    private boolean checkInput(String input){
-        return (input.isBlank()||input==null);
-    }
-    private boolean checkInput(double number){
-        return (number<=0||number>10);
-    }
-    public String searchMovie(String name){
-        if (movies.isEmpty()){
-            throw new IllegalStateException("contacts is empty.");
-        }
-        for (int i = 0; i < movies.size(); i++) {
-            if (movies.get(i).getName().equalsIgnoreCase(name))
-                return movies.get(i).toString();
-        }return null;
-    }
 }
+
