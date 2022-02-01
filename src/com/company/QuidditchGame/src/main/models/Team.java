@@ -12,6 +12,15 @@ public class Team {
     private static final String POSITION_KEEPER = "keeper";
 
     public Team(String house, String keeper, String seeker, String[] chasers){
+        if (house == null || keeper == null || seeker == null || hasNull(chasers)){
+            throw new IllegalArgumentException("none of fields Can be empty!");
+        }
+        if (house.isBlank() || seeker.isBlank() || keeper.isBlank() || hasBlank(chasers)){
+            throw new IllegalArgumentException("none of fields Can be empty!");
+        }
+        if ( chasers.length !=3){
+            throw new IllegalStateException("Chasers should be 3!");
+        }
         this.house = house;
         this.keeper = keeper;
         this.seeker = seeker;
@@ -30,6 +39,7 @@ public class Team {
     }
 
     public void setHouse(String house) {
+        checkParams(house);
         this.house = house;
     }
 
@@ -38,6 +48,7 @@ public class Team {
     }
 
     public void setKeeper(String keeper) {
+        checkParams(keeper);
         this.keeper = keeper;
     }
 
@@ -46,6 +57,7 @@ public class Team {
     }
 
     public void setSeeker(String seeker) {
+        checkParams(seeker);
         this.seeker = seeker;
     }
 
@@ -54,6 +66,9 @@ public class Team {
     }
 
     public void setChasers(String[] chasers) {
+        if (hasNull(chasers)|| hasBlank(chasers)){
+            throw new IllegalArgumentException("Chasers can not be empty or space!");
+        }
         this.chasers = Arrays.copyOf(chasers,chasers.length);
     }
 
@@ -67,6 +82,21 @@ public class Team {
 
      public static String getPositionKeeper() {
          return POSITION_KEEPER;
+     }
+
+     public static boolean hasNull(String[] chasers){
+         for (int i = 0; i < chasers.length; i++) {
+             if (chasers[i]==null)return true;
+         }return false;
+     }
+     public static boolean hasBlank(String[] chasers){
+        return Arrays.stream(chasers).anyMatch((item) -> item.isBlank());
+     }
+
+     private void checkParams(String param){
+        if (param.isBlank()||param==null){
+            throw new IllegalArgumentException(param+ "Can not be empty or blank!");
+        }
      }
 
      public String toString (){
