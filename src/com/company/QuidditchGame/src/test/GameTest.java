@@ -1,6 +1,7 @@
 package com.company.QuidditchGame.src.test;
-import src.main.models.Game;
 
+
+import com.company.QuidditchGame.src.main.models.Game;
 
 public class GameTest {
 
