@@ -3,11 +3,13 @@ package com.company.staticVariables;
 public class Employee {
     private String name;
     private String position;
-    static int hiredCount; 
+    private static int hiredCount;
+    private static final String COMPANY_NAME= "JAVASTARS";
 
     public Employee(String name, String position) {
         this.name = name;
         this.position = position;
+        hiredCount++;
     }
   
     public Employee(Employee source) {
@@ -24,14 +26,16 @@ public class Employee {
     }
   
     public void greet(String company) {
-        if (company.equals("JAVASTARS")) {
+        if (company.equals(COMPANY_NAME)) {
             System.out.println("Welcome!");
         }
     }
-
+    public static int getHiredCount(){
+        return hiredCount;
+    }
 
     public String toString() {
 
-        return "\tName: " + name + "\tPosition: " + this.position + "\tCompany: " + "JAVASTARS" + "\n";
+        return "\tName: " + name + "\tPosition: " + this.position + "\tCompany: " + COMPANY_NAME + "\n";
     }
 }
