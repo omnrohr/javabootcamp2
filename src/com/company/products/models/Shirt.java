@@ -48,4 +48,9 @@ public class Shirt extends Product{
                 "Color: " + super.getColor() + "\n"+
                 "Brand: " + this.getBrand() + "\n";
     }
+
+    @Override
+    public void fold() {
+        System.out.println("Fold the shirt!");
+    }
 }

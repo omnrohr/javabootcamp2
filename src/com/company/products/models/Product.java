@@ -43,4 +43,6 @@ public abstract class Product {
     public void setColor(String color) {
         this.color = color;
     }
+
+    public abstract void fold();
 }

@@ -46,4 +46,9 @@ public class Pants extends Product{
                 "Color: " + super.getColor() + "\n"+
                 "Waist: " + this.getWaist() + "\n";
     }
+
+    @Override
+    public void fold() {
+        System.out.println("fold the pants!");
+    }
 }
