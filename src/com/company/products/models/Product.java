@@ -1,6 +1,6 @@
 package com.company.products.models;
 
-public class Product {
+public abstract class Product {
     private String size;
     private double price;
     private String color;
