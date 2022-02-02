@@ -16,6 +16,7 @@ public class Main {
 
         Game game = new Game(home,away);
         System.out.println(game.getTeam("GRYFFINDOR"));
+        System.out.println(Game.getGameCount());
     }
 
 

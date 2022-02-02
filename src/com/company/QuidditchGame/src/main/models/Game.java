@@ -5,6 +5,8 @@ import java.util.HashMap;
 public class Game {
     private HashMap<Team,Integer> scoreBoard;
     private static int gameCount;
+    private static final int QUAFFLE_POINTS = 10;
+    private static final int SNITCH_POINTS = 150;
 
     public Game(Team home, Team away){
         this.scoreBoard = new HashMap<Team, Integer>();
@@ -29,6 +31,34 @@ public class Game {
 
     public void setScore(Team team, Integer score){
         scoreBoard.put(team, score);
+    }
+
+    public static int getGameCount() {
+        return gameCount;
+    }
+
+    public String getPlaceholder(String play) {
+        return play.substring(play.indexOf("<") + 1, play.indexOf(">"));
+    }
+
+    public String replacePlaceholder(String play, String placeholder, String value) {
+        return play.replace("<"+placeholder+">", value);
+    }
+
+    public void quaffleScore(Team team) {
+        this.setScore(team, this.getScore(team) + QUAFFLE_POINTS);
+    }
+
+    public void catchSnitch(Team team) {
+        this.setScore(team, this.getScore(team) + SNITCH_POINTS);
+    }
+
+    public static int getQuafflePoints() {
+        return QUAFFLE_POINTS;
+    }
+
+    public static int getSnitchPoints() {
+        return SNITCH_POINTS;
     }
 
     public Team getTeam(String name){
