@@ -1,6 +1,7 @@
 package com.company.QuidditchGame.src.main.models;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Team {
     private String house;
@@ -98,6 +99,27 @@ public class Team {
             throw new IllegalArgumentException(param+ "Can not be empty or blank!");
         }
      }
+
+
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (!(obj instanceof Team)) {
+            return false;
+        }
+
+        Team team = (Team)obj;
+        return this.house.equals(team.house) &&
+                this.keeper.equals(team.keeper) &&
+                this.seeker.equals(team.seeker) &&
+                Arrays.toString(this.chasers).equals(Arrays.toString(team.chasers));
+    }
+
+    public int hashCode(){
+        return Objects.hash(house,keeper,seeker,Arrays.toString(chasers));
+    }
 
      public String toString (){
          return "House: " + this.house + "\n" +
