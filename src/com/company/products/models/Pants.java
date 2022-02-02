@@ -2,30 +2,30 @@ package com.company.products.models;
 
 import java.util.Objects;
 
-public class Pants extends Product implements Discountable{
-    private int waist;
+public class Pants extends Product implements Discountable, Comparable<Pants>{
+    private String brand;
 
-    public Pants(Size size, double price, String color, int waist){
+    public Pants(int size, double price, String color, String waist){
         super(size, price, color);
-        this.waist = waist;
+        this.brand = waist;
     }
 
     public Pants (Pants source){
         super(source);
-        this.waist = source.waist;
+        this.brand = source.brand;
     }
 
-    public int getWaist() {
-        return waist;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setWaist(int waist) {
-        this.waist = waist;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getColor(),getWaist(),getSize(),getPrice());
+        return Objects.hash(getColor(), getBrand(),getSize(),getPrice());
     }
 
     @Override
@@ -35,8 +35,8 @@ public class Pants extends Product implements Discountable{
         Pants pants = (Pants) o;
         return (super.getColor().equals(pants.getColor())&&
                 super.getPrice() == pants.getPrice() &&
-                super.getSize().equals(pants.getSize())&&
-                this.getWaist() == pants.getWaist());
+                super.getSize()==(pants.getSize())&&
+                this.getBrand() == pants.getBrand());
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Pants extends Product implements Discountable{
         return  "Size: "+ super.getSize() +"\n"+
                 "Price: " + super.getPrice() + "\n"+
                 "Color: " + super.getColor() + "\n"+
-                "Waist: " + this.getWaist() + "\n";
+                "Waist: " + this.getBrand() + "\n";
     }
 
     @Override
@@ -55,5 +55,10 @@ public class Pants extends Product implements Discountable{
     @Override
     public void discount() {
         super.setPrice(super.getPrice()/2);
+    }
+
+    @Override
+    public int compareTo(Pants o) {
+        return 0;
     }
 }

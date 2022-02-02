@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Shirt extends Product{
     private String brand;
 
-    public Shirt(Size size, double price, String color, String brand){
+    public Shirt(int size, double price, String color, String brand){
         super(size,price,color);
         this.brand = brand;
     }
@@ -36,7 +36,7 @@ public class Shirt extends Product{
         return (
                 getColor().equals(shirt.getColor())
                 && getPrice()==shirt.getPrice()
-                && getSize().equals(shirt.getSize())
+                && getSize()==(shirt.getSize())
                 && getBrand().equals(shirt.getBrand())
         );
     }

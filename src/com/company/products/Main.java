@@ -6,16 +6,27 @@ import com.company.products.models.Shirt;
 
 public class Main {
   
-    static final String FILE_NAME = "products.txt";
+    static final String FILE_NAME = "D:\\javabootcamp2\\exceptions\\src\\com\\company\\products\\products.txt";
 
     public static void main(String[] args) {
-        Shirt shirt1 = new Shirt(Product.Size.LARGE, 1.2,"blue", "omn");
-        Pants pants1 = new Pants(Product.Size.MEDIUM, 2.3, "blue", 1);
-//        Product product = new Product("helo", 2, "hi"); // you can not instantiate an abstract class.
-        Shirt shirt2 = shirt1;
-        boolean result = shirt2.equals(shirt1);
-        System.out.println(shirt1);
-        System.out.println(pants1);
+        Product[] products = new Product[] {
+                new Pants(32, 24.99, "Blue", "JAVA KLEIN"),
+                new Pants(34, 104.99, "Red", "JANGLER"),
+                new Pants(30, 119.99, "Grey", "FENDI"),
+                new Pants(30, 129.99, "Red", "VERSACE"),
+                new Pants(29, 99.99, "Dark", "JANGLER"),
+                new Pants(26, 24.99, "Indigo", "BELSTAFF"),
+                new Pants(34, 104.99, "Red", "JANGLER"),
+        };
+
+        printArray(products);
+
+    }
+
+    public static void printArray(Product[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(array[i]);
+        }
     }
   
     /**
