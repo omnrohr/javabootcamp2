@@ -30,6 +30,9 @@ public class Game {
     }
 
     public void setScore(Team team, Integer score){
+        if (team==null){
+            throw new IllegalArgumentException("team can not be null.");
+        }
         scoreBoard.put(team, score);
     }
 
@@ -61,9 +64,36 @@ public class Game {
         return SNITCH_POINTS;
     }
 
+    public Team getRandomTeam() {
+        Object[] teams = scoreBoard.keySet().toArray();
+        return (Team)teams[random(teams.length)];
+    }
+
+    public int random(int range) {
+        return (int) (Math.random() * range);
+    }
+
     public Team getTeam(String name){
         return scoreBoard.keySet().stream().filter((key)-> key.getHouse().equals(name))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public String simulate(String play) {
+        String placeholder = getPlaceholder(play);
+        Team team = getRandomTeam();
+        String value = "";
+
+        if (placeholder.equals(Team.getPositionChaser())) {
+            quaffleScore(team);
+            value = team.getChasers()[random(team.getChasers().length)];
+        } else if (placeholder.equals(Team.getPositionSeeker())) {
+            catchSnitch(team);
+            value = team.getSeeker();
+        } else if (placeholder.equals(Team.getPositionKeeper())) {
+            value = team.getKeeper();
+        }
+
+        return replacePlaceholder(play, placeholder, value);
     }
 }
