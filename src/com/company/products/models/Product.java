@@ -1,6 +1,6 @@
 package com.company.products.models;
 
-public abstract class Product {
+public abstract class Product implements Comparable<Product>{
 //    public enum Size {
 //        SMALL, MEDIUM, LARGE
 //    }
@@ -45,4 +45,9 @@ public abstract class Product {
     }
 
     public abstract void fold();
+
+    @Override
+    public int compareTo(Product specifiedObject) {
+        return (int) Math.round(this.getPrice() - specifiedObject.getPrice());
+    }
 }

@@ -2,7 +2,7 @@ package com.company.products.models;
 
 import java.util.Objects;
 
-public class Pants extends Product implements Discountable, Comparable<Pants>{
+public class Pants extends Product implements Discountable{
     private String brand;
 
     public Pants(int size, double price, String color, String waist){
@@ -57,8 +57,5 @@ public class Pants extends Product implements Discountable, Comparable<Pants>{
         super.setPrice(super.getPrice()/2);
     }
 
-    @Override
-    public int compareTo(Pants o) {
-        return 0;
-    }
+
 }
