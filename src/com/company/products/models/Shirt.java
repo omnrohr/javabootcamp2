@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Shirt extends Product{
     private String brand;
 
-    public Shirt(String size, double price, String color, String brand){
+    public Shirt(Size size, double price, String color, String brand){
         super(size,price,color);
         this.brand = brand;
     }
@@ -39,5 +39,13 @@ public class Shirt extends Product{
                 && getSize().equals(shirt.getSize())
                 && getBrand().equals(shirt.getBrand())
         );
+    }
+
+    @Override
+    public String toString() {
+        return  "Size: "+ super.getSize() +"\n"+
+                "Price: " + super.getPrice() + "\n"+
+                "Color: " + super.getColor() + "\n"+
+                "Brand: " + this.getBrand() + "\n";
     }
 }

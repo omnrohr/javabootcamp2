@@ -1,11 +1,14 @@
 package com.company.products.models;
 
 public abstract class Product {
-    private String size;
+    public enum Size {
+        SMALL, MEDIUM, LARGE
+    }
+    private Size size;
     private double price;
     private String color;
 
-    public Product(String size, double price, String color){
+    public Product(Size size, double price, String color){
         this.size = size;
         this.price = price;
         this.color = color;
@@ -17,11 +20,11 @@ public abstract class Product {
         this.color = source.color;
     }
 
-    public String getSize() {
+    public Size getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Size size) {
         this.size = size;
     }
 
