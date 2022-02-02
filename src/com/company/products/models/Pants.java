@@ -41,7 +41,8 @@ public class Pants extends Product implements Discountable{
 
     @Override
     public String toString() {
-        return  "Size: "+ super.getSize() +"\n"+
+        return  "Type: " + this.getClass().getSimpleName()+"\n"+
+                "Size: "+ super.getSize() +"\n"+
                 "Price: " + super.getPrice() + "\n"+
                 "Color: " + super.getColor() + "\n"+
                 "Waist: " + this.getBrand() + "\n";
